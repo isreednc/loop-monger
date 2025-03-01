@@ -7,6 +7,7 @@ def main():
     file = "../sounds/Boom.wav"
     play_wav(file, OUTPUT_DEVICE)
 
+    # TODO: create a proper module for test operations
     # p = pyaudio.PyAudio()
     # print_devices(p)
 
@@ -25,14 +26,15 @@ def play_wav(file_path, output):
         print(f"An unexpected error occurred: {e}")
         return
 
-    # sample_rate = 44100  # Sample rate
     chunk_size = 1024  # Number of frames per buffer 
 
     p = pyaudio.PyAudio()
     device_index = get_input_device(p, output)
+    
+    # testing with a known device that works for me
     device_index = 18
 
-    # headphones
+    # headphones, so the user can also hear the file
     headphone_index = 11
 
     print(device_index)
@@ -69,6 +71,7 @@ def play_wav(file_path, output):
         p.terminate()
         wf.close()
     
+# for analyzing all the devices available to pyaudio
 def print_devices(paudio):
     for i in range(paudio.get_device_count()):
         info = paudio.get_device_info_by_index(i)
