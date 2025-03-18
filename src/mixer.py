@@ -25,6 +25,7 @@ def main():
 
     return 0
 
+#TODO: Refactor to only take wave file as paramter. player and output can be configured outside this function
 def play_wav(player, file_path, output):
     try:
         wf = wave.open(file_path, 'rb')
