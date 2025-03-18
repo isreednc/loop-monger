@@ -7,9 +7,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 import mixer
 
-def test_get_voicemeeter_input_index():
+def test_get_input_device():
     output_device = "CABLE Input (VB-Audio Virtual"
-
 
     # Modify as needed
     expected_index = 21

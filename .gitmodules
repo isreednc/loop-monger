@@ -1,0 +1,3 @@
+[submodule "wavedash"]
+	path = wavedash
+	url = https://github.com/isreednc/wavedash.git
