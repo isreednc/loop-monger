@@ -18,7 +18,7 @@ def get_api_info(p: pyaudio.PyAudio):
 
 def main():
     # file = "../sounds/boom48khz.wav"  # 48000
-    file = "../sounds/monobang.wav" # 44100
+    file = "../test_sounds/monobang.wav" # 44100
     p = pyaudio.PyAudio()
 
     play_wav(p, file, OUTPUT_DEVICE)
