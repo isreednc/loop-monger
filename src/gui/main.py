@@ -8,30 +8,35 @@ sys.path.append(parent_dir)
 
 from sounds import get_sounds
 from mixer import play_wav
+from audio import AudioStream
 
+#TODO: Add config to choose sound api and output device
+SOUND_API = 'MME'
+OUTPUT_DEVICE = 'CABLE Input (VB-Audio Virtual'
 
+class MainWindow:
+    def __init__(self):
+        self.audio_stream = AudioStream()
+        self.audio_stream.open_stream(SOUND_API, OUTPUT_DEVICE)
+        self.root = Tk()
+        self.frame = ttk.Frame(self.root, padding=10)
+        self.frame.grid()
+        ttk.Label(self.frame, text="Loop Monger").grid(column=0, row=0)
+        ttk.Button(self.frame, text="Quit", command=self.root.destroy).grid(column=1, row=0)
+        next_index = self.create_buttons()
+        self.root.mainloop()
+        self.audio_stream.close()
 
-def init_window():
-    root = Tk()
-    frame = ttk.Frame(root, padding=10)
-    frame.grid()
-    ttk.Label(frame, text="Loop Monger").grid(column=0, row=0)
-    ttk.Button(frame, text="Quit", command=root.destroy).grid(column=1, row=0)
-    create_buttons(ttk, frame)
-    root.mainloop()
+    def create_buttons(self):
+        index = 0
+        sounds = get_sounds()
 
-def create_buttons(tk, frame):
-    index = 0
-    sounds = get_sounds()
-
-    #TODO: Refactor play_wav to only take the wav file.
-    for sound in sounds:
-        tk.Button(frame, text=sound, command=play_wav(sound, )).grid(column=index%5, row=(index/5)+1)
-        index += 1
-    return index
-
+        for sound in sounds:
+            ttk.Button(self.frame, text=sound, command=lambda s=sound:
+                       self.audio_stream.play_wav(s)).grid(column=int(index%5), row=int((index/5))+1)
+            index += 1
+        return index
 
 if __name__ == "__main__":
-    init_window()
-
+    window = MainWindow()
 

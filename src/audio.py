@@ -1,3 +1,5 @@
+import os
+import sys
 import pyaudio
 import wave
 
@@ -18,9 +20,9 @@ class AudioStream:
 
     def play_wav(self, file, chunk_size=512):
         try:
-            wf = wave.open(file, 'rb')
-        except FileNotFoundError:
-            print(f"Error: The file '{file}' was not found.")
+            wf = wave.open(f'./src/sounds/{file}', 'rb')
+        except FileNotFoundError as e:
+            print(f"Error: The file '{file}' was not found. {e}")
             return
         except wave.Error as e:
             print(f"Error: Could not open the WAV file. {e}")
@@ -32,6 +34,7 @@ class AudioStream:
         data = wf.readframes(chunk_size)
 
         try:
+            print("playing...")
             while data:
                 self.stream.write(data)
                 data = wf.readframes(chunk_size)
@@ -39,14 +42,13 @@ class AudioStream:
             print(f"An error occurred during playback: {e}")
             return False
         finally:
-            # Stop and close the stream
-            self.stream.stop_stream()
             wf.close()
 
         return True
 
     def close(self):
         if self.stream is not None:
+            self.stream.stop_stream()
             self.stream.close()
         self.p.terminate()
     
