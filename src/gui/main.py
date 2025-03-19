@@ -7,7 +7,6 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(parent_dir)
 
 from sounds import get_sounds
-from mixer import play_wav
 from audio import AudioStream
 
 #TODO: Add config to choose sound api and output device

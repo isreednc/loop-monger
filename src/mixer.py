@@ -1,3 +1,5 @@
+# NOTE: Obsolete implementation, using for reference
+
 import pyaudio
 import wave
 
